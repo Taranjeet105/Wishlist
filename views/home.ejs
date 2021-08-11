@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <%- include('partials/basic') %>
+       <h1>home page</h1>
+       <div class="container">
+        <form id="myform">
+            <div class="input-group mb-3">
+                
+                <input name="wish" type="text" class="form-control" aria-label="Text input with checkbox">
+              </div>
+              
+              <button  type="submit" class="btn btn-primary">Primary</button>
+
+        </form>
+
+
+        <% data.forEach(item=>{ %>
+            <li  onclick="delv(this)" ><%= item.wish %></li>
+        <% }) %>
+        
+        <script>
+        
+
+            document.getElementById("myform").onsubmit=(e)=>{
+                e.preventDefault()
+                console.log(e.target)
+                let  url=("http://localhost:3000/wishlist")
+                let data=new URLSearchParams()
+               
+                for(const pair of new FormData(e.target) ){
+                    // console.log("here")
+                    // console.log(pair)
+                    data.append(pair[0],pair[1])
+                }
+                fetch(url,{
+                    method:"post",
+                    body:data,
+                    // headers:{
+                    //     'Content-Type':'application/json'
+                    // }
+                }).then(res=>res.json())
+                .then(result=>{
+                    console.log(result)
+                  
+                })
+                location.reload()
+            }
+           
+           
+            
+        function delv (item){
+            fetch('http://localhost:3000/delete/'+item.innerHTML,{
+                method:'delete',
+            }).then(res=>res.json())
+            .then(result=>console.log(result))
+            location.reload()
+        }
+            
+        </script>
+        
+          
+          
+
+       </div>
+       
+       
+    </body>
+</html>
