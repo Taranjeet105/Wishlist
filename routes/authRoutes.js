@@ -9,6 +9,8 @@ router.get("/",(req,res)=>{
     Wish.find({}).then(item=>{
         console.log(item)
         res.render("home",{data:item})
+    }).catch(err=>{
+        res.send(err)
     })
       // __dirname=something../routes dirctor of auth routes
 })
@@ -24,7 +26,7 @@ router.post("/signup",(req,res)=>{
 
 router.get('/profile/:id',(req,res)=>{
      
-    res.render("home",{data:req.params.id})
+    res.send("user id is "+req.params.id)
 })
 
 router.get('/about',(req,res)=>{
@@ -45,6 +47,8 @@ router.delete('/delete/:id',(req,res)=>{
   Wish.findOneAndRemove({wish:req.params.id}).then(item=>{
       console.log("deleted")
       res.send(item)
+  }).catch(err=>{
+      res.send(err)
   })
 
 })

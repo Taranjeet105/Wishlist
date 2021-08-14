@@ -14,7 +14,10 @@ app.set('view engine','ejs')  // views folder will contain ejs files which are n
 app.use(authRoutes)
 app.use(express.static('public'))   // for serving static files from public folder
 
-mongoose.connect(mongoUrl)
+mongoose.connect(mongoUrl,{
+    useNewUrlParser:true,
+    useUnifiedTopology:true
+})
 
 mongoose.connection.on('connected',()=>{
     console.log("mongoDB connected")
