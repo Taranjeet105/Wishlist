@@ -36,7 +36,7 @@ router.get('/about',(req,res)=>{
 
 router.post('/wishlist',(req,res)=>{
     const userWish=req.body.wish
-    console.log(userWish)
+    console.log(req.body)
     const  wish=new Wish({wish:userWish})
     wish.save()
    

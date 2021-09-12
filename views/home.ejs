@@ -33,12 +33,11 @@
             document.getElementById("myform").onsubmit=(e)=>{
                 e.preventDefault()
                 console.log(e.target)
-                let  url=("http://localhost:3000/wishlist")
+                let  url=("http://localhost:5000/wishlist")
                 let data=new URLSearchParams()
                
                 for(const pair of new FormData(e.target) ){
-                    // console.log("here")
-                    // console.log(pair)
+                    
                     data.append(pair[0],pair[1])
                 }
                 fetch(url,{
@@ -58,7 +57,7 @@
            
             
         function delv (item){
-            fetch('http://localhost:3000/delete/'+item.innerHTML,{
+            fetch('http://localhost:5000/delete/'+item.innerHTML,{
                 method:'delete',
             }).then(res=>res.json())
             .then(result=>console.log(result))
